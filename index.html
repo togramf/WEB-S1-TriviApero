@@ -11,5 +11,22 @@
              <p><output name="nbPlayersValue" id="nbPlayersValueId">4</output> joueurs :</p>
              <input type="range" name="nbPlayers" id="nbPlayersId" value="4" min="2" max="10" class="slider" oninput="nbPlayersValueId.value = nbPlayersId.value">
          </div>
-     </form>
+    </form>
+    <button type="button" id="play_game" class="button_all">Jouer</button>
+    </div>
+    <div id="play_menu">
+        <h2>TriviApéro</h2>
+        <button type="button" id="start_question" class="button_all">C'est parti !</button>
+        <div id="play_area">
+            <div id="question_area">
+            </div>
+            <div id="answer_area">
+        </div>
+        <div id="info">
+            </div>
+            <div id="scores_area">
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
 </body>
