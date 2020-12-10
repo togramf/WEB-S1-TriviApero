@@ -6,7 +6,10 @@
 <body>
     <h1>TriviApéro</h1>
     <p>Description rapide du jeu</p>
-    <h2>Choisissez le nombre de joueurs</h2>
-    <h3>Choisissez votre nom</h3>
-    
+    <form id="parameters">
+        <div>
+             <p><output name="nbPlayersValue" id="nbPlayersValueId">4</output> joueurs :</p>
+             <input type="range" name="nbPlayers" id="nbPlayersId" value="4" min="2" max="10" class="slider" oninput="nbPlayersValueId.value = nbPlayersId.value">
+         </div>
+     </form>
 </body>
