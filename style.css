@@ -27,6 +27,20 @@ body {
   pointer-events: none;
 }
 
+#categories{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.category {
+  background-color: var(--color3);
+  color : var(--color1);
+  border-radius: 10%;
+  padding: 8px 8px;
+}
+
 @media (maw-width: 768px){
 
 }

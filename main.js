@@ -10,6 +10,9 @@ const btn_start = document.querySelector('#start_game');
 const btn_play = document.querySelector('#play_game');
 const nbPlayers = document.querySelector('#nbPlayersValueId');
 const slide_nbPlayers = document.querySelector('#nbPlayersId');
+const categories = document.querySelector('#categories');
+
+const url_API = 'https://opentdb.com/api.php?amount=10&token=Triviapero';
 
 function displayOrHide (element){
     element.classList.toggle("hidden_element");
@@ -52,3 +55,33 @@ function playClick(e){
 btn_play.addEventListener('click',playClick);
 
 
+
+async function getCategories(){
+    const response = await fetch ('https://opentdb.com/api_category.php');
+    const body = await response.json();
+
+    try {
+        //console.log(body.trivia_categories);
+        for (i=0; i<body.trivia_categories.length; i++){
+            console.log(body.trivia_categories[i].id);
+            console.log(body.trivia_categories[i].name);
+            
+            var newElement = document.createElement('button');
+            newElement.type = "button";
+            //newElement.id=body.trivia_categories[i].id;
+            newElement.name=body.trivia_categories[i].name;
+            newElement.textContent=body.trivia_categories[i].name;
+            newElement.classList.add("category");
+            newElement.addEventListener('click',categoriesClick,false);
+            categories.appendChild(newElement);
+        }
+    }
+    catch {
+        console.log("erreur");
+    }
+}
+btn_play.addEventListener('click', getCategories);
+
+function categoriesClick (e){
+    console.log(e.currentTarget.name);
+}
