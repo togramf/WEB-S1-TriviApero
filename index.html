@@ -1,33 +1,72 @@
 <!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <title>TriviApéro</title>
-    <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-    <h1>Trivi'Apéro</h1>
-    <p>Description rapide du jeu</p>
-    <form id="parameters">
-        <div>
-             <p><output name="nbPlayersValue" id="nbPlayersValueId">4</output> joueurs :</p>
-             <input type="range" name="nbPlayers" id="nbPlayersId" value="4" min="2" max="10" class="slider" oninput="nbPlayersValueId.value = nbPlayersId.value">
-         </div>
-    </form>
-    <button type="button" id="play_game" class="button_all">Jouer</button>
-    </div>
-    <div id="play_menu">
-        <h2>TriviApéro</h2>
-        <button type="button" id="start_question" class="button_all">C'est parti !</button>
-        <div id="play_area">
-            <div id="question_area">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css" />
+        <link
+                href="https://necolas.github.io/normalize.css/8.0.1/normalize.css"
+                rel="stylesheet"/>
+        <title id="title">TriviApéro</title>
+        
+    </head>
+    
+    <body>
+        <section id="accueil">
+            <h1>Trivi'Apéro</h1>
+    
+            <div id="regles">
+                <p>Description rapide du jeu</p>
             </div>
-            <div id="answer_area">
-        </div>
-        <div id="info">
+
+            <button type="button" id="start_game" class="button_all">Jouer</button>
+        
+        </section>
+
+        <section id="parametre_partie" class="hidden_element">
+            <div id="management">    
+                <div id="players">
+                    <h2>Participants</h2>
+                    <ul class="list_players">
+                        
+                    </ul>
+                </div>
+    
+                <div class="management-form">
+                    <input type="text" id="pseudo" name="pseudo" placeholder="Choisis un pseudo" required
+                    size="10">
+                    <button type="button" id="add_pseudo">Ajouter un joueur</button>
+                </div>
+
+                <form id="parameters">
+                    <div>
+                         <p><output name="nbPlayersValue" id="nbPlayersValueId" value="0">0</output> joueurs :</p>
+                         <input type="range" name="nbPlayers" id="nbPlayersId" value="0" min="0" max="10" class="slider" >
+                     </div>
+                </form>
+
+                <button type="button" id="play_game" class="button_all hidden_element">C'est parti !</button>
+        
             </div>
-            <div id="scores_area">
+        </section>
+        
+        <section id="jeu" class="hidden_element">
+            <div id="play_menu">
+                <h2>TriviApéro</h2>
+                <button type="button" id="start_question" class="button_all">C'est parti !</button>
+                <div id="play_area">
+                    <div id="question_area">
+                    </div>
+                    <div id="answer_area">
+                </div>
+                <div id="info">
+                    </div>
+                    <div id="scores_area">
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <script src="main.js"></script>
-</body>
+        </section>
+        
+        <script src="main.js"></script>
+    </body>
+
+</html>
