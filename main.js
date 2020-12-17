@@ -11,7 +11,7 @@ const btn_play = document.querySelector('#play_game');
 const btn_question = document.querySelector('#start_question');
 const nbPlayers = document.querySelector('#nbPlayersValueId');
 const slide_nbPlayers = document.querySelector('#nbPlayersId');
-const categories = document.querySelector('#categories');
+const categories = document.querySelector('#select_category');
 const questions = document.querySelector('#question_area');
 const answers = document.querySelector('#answer_area');
 
@@ -69,13 +69,11 @@ async function getCategories(){
             //console.log(body.trivia_categories[i].id);
             //console.log(body.trivia_categories[i].name);
             
-            var newElement = document.createElement('button');
-            newElement.type = "button";
+            var newElement = document.createElement('option');
             //newElement.id=body.trivia_categories[i].id;
             //newElement.name=body.trivia_categories[i].name;
+            newElement.value = body.trivia_categories[i].id;
             newElement.textContent=body.trivia_categories[i].name;
-            newElement.classList.add("category");
-            newElement.addEventListener('click',categoriesClick,false);
             categories.appendChild(newElement);
         }
     }
@@ -85,14 +83,10 @@ async function getCategories(){
 }
 btn_play.addEventListener('click', getCategories);
 
-function categoriesClick (e){
-    console.log(e.currentTarget.name);
-}
-
 async function getQuestion(){
-    //var category =  ;
-    var difficulty = document.querySelector('#select_difficulty').value;
-    const response = await fetch('https://opentdb.com/api.php?amount=1&category=9&difficulty='+difficulty);
+    var cat = document.querySelector('#select_category').value;
+    var diff = document.querySelector('#select_difficulty').value;
+    const response = await fetch('https://opentdb.com/api.php?amount=1&category='+cat+'&difficulty='+diff);
     const body = await response.json();
 
     try {
@@ -106,6 +100,8 @@ async function getQuestion(){
 
 function createQuestion ( quest ) {
     console.log(quest.category);
+    /*VERSION 1 
+    //supprime la question precedente
     var newQuestion = document.createElement('div');
     newQuestion.classList.add("question");
     newQuestion.classList.add(quest.type);
@@ -136,6 +132,19 @@ function createQuestion ( quest ) {
         newAnswer.appendChild(newProposition);
     }
     answers.appendChild(newAnswer);
+    */
+
+    /*VERSION 2 */
+    // remplace la question precedente 
+    document.querySelector('#question_category').textContent = quest.category;
+    document.querySelector('#question_difficulty').textContent = quest.difficulty;
+    document.querySelector('#question_wording').textContent = quest.question;
+
+    document.querySelector('.correct_answer').textContent = quest.correct_answer;
+    //provisoirement on va faire comme ca
+    document.querySelector('.incorrect_answer').textContent = quest.incorrect_answers;
+    
+
 }
 
 btn_question.addEventListener('click', getQuestion);

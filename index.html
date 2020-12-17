@@ -11,11 +11,15 @@
     </head>
     
     <body>
-        <section id="accueil">
+        <section id="en-tete">
             <h1>Trivi'Apéro</h1>
-    
+        </section>
+        <section id="accueil">   
             <div id="regles">
-                <p>Description rapide du jeu</p>
+                <p> Entre 2 et 10 joueurs - 
+                    Lors de son tour, le joueur choisis une catégorie et une difficulté et doit répondre à une question : 
+                    en fonction de la difficulté et de sa réponse, il peut distribuer des coups ou doit boire. 
+                </p>
             </div>
 
             <button type="button" id="start_game" class="button_all">Jouer</button>
@@ -51,23 +55,33 @@
         
         <section id="jeu" class="hidden_element">
             <div id="play_menu">
-                <h2>TriviApéro</h2>
-                <h1>Player</h1>
-                <p>Choisi une catégorie : </p>
-                <div id="categories">
-
-                </div>
+                <h1 id="current_player">Player</h1>
+                <p>Choisi tes parametres : </p>
                 <select id="select_difficulty">
                     <option value="any_difficulty">Difficulté aléatoire</option>
                     <option value="easy">Facile</option>
                     <option value="medium">Moyenne</option>
                     <option value="hard">Difficile</option>
                 </select>
+
+                <select id="select_category">
+
+                </select>
+                                
                 <button type="button" id="start_question" class="button_all">Voir la question</button>
                 <div id="play_area">
                     <div id="question_area">
+                        <div class = "question multiple">
+                            <p id = "question_category">categorie</p>
+                            <p id = "question_difficulty">difficulte</p>
+                            <p id = "question_wording">enonce de la question</p>
+                        </div>
                     </div>
                     <div id="answer_area">
+                        <div class="answer">
+                            <p class="correct_answer">proposition 1</p>
+                            <p class="incorrect_answer">proposition 2</p>
+                        </div>
                     </div>
                     <div id="info">
                     </div>
