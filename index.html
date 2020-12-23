@@ -10,7 +10,7 @@
     </head>
     
     <body>
-        <div id="menu">
+        <div id="menu_section">
             <img src="images\logo.png" alt="Logo" id="logo"> 
             <h1 id="titre">Trivi'Apéro</h1>
             <div id="regles">
@@ -21,39 +21,40 @@
             </div>
             
             <button type="button" id="start_game" class="button_all">Jouer</button>
-            
         </div>
 
-        <div id="parametre_partie" class="hidden_element">
-            <div id="management">    
-                <div id="players">
-                    <h2>Participants</h2>
-                    <ul class="list_players">
-                        
-                    </ul>
-                </div>
-    
+        <div id="param_section" class="hidden_element">
+               
+            <div id="players">
+                <h2>Participants</h2>
+                <ul class="list_players"> 
+                </ul>
+            </div>
+            
+            <div id="game_menu">
                 <div class="management-form">
                     <input type="text" id="pseudo" name="pseudo" placeholder="Choisis un pseudo" required
-                    size="10">
-                    <button type="button" id="add_pseudo">Ajouter un joueur</button>
+                    size="20">
+                    <button type="button" id="add_pseudo" class="button_all">Ajouter un joueur</button>
                 </div>
 
                 <form id="parameters">
                     <div>
-                         <p><output name="nbPlayersValue" id="nbPlayersValueId" value="0">0</output> joueurs :</p>
+                         <p><output name="nbPlayersValue" id="nbPlayersValueId">0</output> joueurs :</p>
                          <input type="range" name="nbPlayers" id="nbPlayersId" value="0" min="0" max="10" class="slider" >
                      </div>
                 </form>
 
                 <button type="button" id="play_game" class="button_all hidden_element">C'est parti !</button>
-        
             </div>
+                
+        
+            
         </div>
         
-        <div id="jeu" class="hidden_element">
+        <div id="game_section" class="hidden_element">
+            <h1 id="current_player">Player</h1>
             <div id="play_menu">
-                <h1 id="current_player">Player</h1>
                 <p>Choisi tes parametres : </p>
                 <select id="select_difficulty">
                     <option value="any_difficulty">Difficulté aléatoire</option>
@@ -62,31 +63,38 @@
                     <option value="hard">Difficile</option>
                 </select>
 
-                <select id="select_category">
-
-                </select>
+                <select id="select_category"></select>
                                 
                 <button type="button" id="start_question" class="button_all">Voir la question</button>
-                <div id="play_area">
-                    <div id="question_area">
-                        <div class = "question multiple">
-                            <p id = "question_category">categorie</p>
-                            <p id = "question_difficulty">difficulte</p>
-                            <p id = "question_wording">enonce de la question</p>
-                        </div>
+            </div>
+
+            <div id="play_area" class="hidden_element">
+                <div id="question_area">
+                    <div class = "question multiple">
+                        <p id = "question_category">categorie</p>
+                        <p id = "question_difficulty">difficulte</p>
+                        <p id = "question_wording">enonce de la question</p>
                     </div>
-                    <div id="answer_area">
-                        <div class="answer">
-                            <p class="correct_answer">proposition 1</p>
-                            <p class="incorrect_answer">proposition 2</p>
-                        </div>
-                    </div>
-                    <div id="info">
-                    </div>
-                    <div id="scores_area">
+                </div>
+                <div id="answer_area">
+                    <div class="answer">
+                        <p class="correct_answer">proposition 1</p>
+                        <p class="incorrect_answer">proposition 2</p>
                     </div>
                 </div>
             </div>
+
+            <div id="result_area" class="hidden_element">
+                <div id="result"></div>
+                
+                <button type="button" id="next_game" class="button_all">Tour suivant !</button>
+            </div>
+        </div>
+
+        <div id="score_section" class="hidden_element">
+            <h2>Scores</h2>
+            <ul id="scores_area"></ul>
+            <h2 id="round_compteur">Round 1</h2>
         </div>
         
         <script src="main.js"></script>
