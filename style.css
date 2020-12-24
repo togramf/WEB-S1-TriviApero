@@ -34,6 +34,13 @@ body {
   width: 100px;
 }
 
+#logo2 {
+  position: absolute;
+  width: 70px;
+  bottom : 2vh;
+  left : 2vh;
+}
+
 #param_section {
   align-items: center;
   position: absolute;
@@ -66,13 +73,17 @@ body {
   border: 0.5em solid white;
 }
 
+#play_area {
+  padding: 1rem;
+  background-color:mediumpurple;
+  color : black; 
+  border: 0.5em solid white; 
+}
+
 #result_area {
   align-items: center;
-  position: absolute;
-  left : 8vw;
-  width: 25vw;
-  bottom: 15vh;
   padding: 1rem;
+  margin-top: 0.5em;
   background-color:mediumpurple;
   color : black; 
   border: 0.5em solid white; 
@@ -120,4 +131,8 @@ button:active {
 .hidden_element {
   opacity : 0;
   pointer-events: none;
+}
+
+.highlight_answer {
+  font-weight: bold;
 }

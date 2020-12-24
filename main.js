@@ -5,6 +5,8 @@ const section_parametres = document.querySelector('#param_section');
 const section_jeu = document.querySelector('#game_section');
 const section_scores = document.querySelector('#score_section');
 
+const logo = document.querySelector('#logo2');
+
 const game_menu = document.querySelector('#game_menu');
 const play_menu = document.querySelector('#play_menu');
 const play_area = document.querySelector('#play_area');
@@ -39,6 +41,7 @@ function displayOrHide (element){
 function startClick(e){
     console.log("Lancement du Jeu !");
     displayOrHide(section_menu); 
+    displayOrHide(logo);
     displayOrHide(section_parametres);
 }
 btn_start.addEventListener('click',startClick);
@@ -167,7 +170,7 @@ btn_question.addEventListener('click', getQuestion);
 
 
 function submitAnswer ( e ){
-    displayOrHide(play_area);
+    document.querySelector('.correct_answer').classList.toggle('highlight_answer');
     
     var diff = document.querySelector('#question_difficulty');
     var score; 
@@ -193,6 +196,8 @@ function submitAnswer ( e ){
 }
 
 function nextClick (e) {
+    document.querySelector('.correct_answer').classList.toggle('highlight_answer');
+    
     players[current_player].classList.toggle("current_player");
     if (current_player<nbPlayers.textContent){
         current_player += 1;
@@ -210,6 +215,7 @@ function nextClick (e) {
     document.querySelector('#current_player').textContent = "Tour de "+players[current_player].textContent;
     document.querySelector('#current_player').value = current_player;
     
+    displayOrHide(play_area);
     displayOrHide(play_menu);
     displayOrHide(result_area);
 }
