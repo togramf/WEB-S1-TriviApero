@@ -18,7 +18,7 @@
             <div id="regles">
                 <p> Entre 2 et 10 joueurs - 
                 Lors de son tour, le joueur choisit une catégorie et une difficulté et doit répondre à une question : 
-                en fonction de la difficulté et de sa réponse, il peut distribuer des coups ou devra boire. 
+                en fonction de la difficulté et de sa réponse, il pourra distribuer des coups ou devra boire. 
                 </p>
             </div>
             
@@ -35,10 +35,10 @@
             </div>
             
             <div id="game_menu">
-                <div class="management-form">
-                    <input type="text" id="pseudo" name="pseudo" placeholder="Choisis un pseudo" required
+                <div class="pseudo-form">
+                    <input type="text" id="pseudo" name="pseudo" placeholder="Choisis un pseudo ou un nom d'équipe" required
                     size="20">
-                    <button type="button" id="add_pseudo" class="button_all">Ajouter un joueur</button>
+                    <button type="button" id="add_pseudo" class="button_all">Ajouter un joueur ou une équipe</button>
                 </div>
 
                 <form id="parameters">
@@ -46,6 +46,10 @@
                          <p><output name="nbPlayersValue" id="nbPlayersValueId">0</output> joueurs :</p>
                          <input type="range" name="nbPlayers" id="nbPlayersId" value="0" min="0" max="10" class="slider" >
                      </div>
+                     <div>
+                        <p> Partie en <output name="nbDrinkValue" id="nbDrinkValueId" >5</output> gorgées :</p>
+                        <input type="range" name="nbDrink" id="nbDrinkId" value="5" min="5" max="50" class="slider" oninput="nbDrinkValueId.value=nbDrinkId.value">
+                    </div>
                 </form>
 
                 <button type="button" id="play_game" class="button_all hidden_element">C'est parti !</button>

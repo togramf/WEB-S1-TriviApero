@@ -70,7 +70,7 @@ function addPlayer() {
         displayOrHide(btn_play);
     }
     if (slide_nbPlayers.value == 10) {
-        displayOrHide(document.querySelector('.management-form'));
+        displayOrHide(document.querySelector('.pseudo-form'));
     }
 }
 btn_add_player.addEventListener('click', addPlayer);
@@ -171,6 +171,7 @@ btn_question.addEventListener('click', getQuestion);
 
 function submitAnswer ( e ){
     document.querySelector('.correct_answer').classList.toggle('highlight_answer');
+    e.currentTarget.classList.toggle('selected_answer');
     
     var diff = document.querySelector('#question_difficulty');
     var score; 
@@ -185,11 +186,11 @@ function submitAnswer ( e ){
     if (e.currentTarget.classList.contains('correct_answer')){
         console.log("Bonne réponse ! ");
         players[current_player].value += 5*score;
-        result.textContent = 'Bravo, bonne réponse '+players[current_player].textContent+' ! '+5*score+' points en plus !';
+        result.textContent = 'Bravo, bonne réponse '+players[current_player].textContent+' ! Distribue '+score+' gorgées !';
     } else {
         console.log("Mauvaise réponse ! ");
         players[current_player].value -= 5*score;
-        result.textContent = 'Dommage, mauvaise réponse '+players[current_player].textContent+' ! '+5*score+' points en moins !';
+        result.textContent = 'Dommage, mauvaise réponse '+players[current_player].textContent+' ! Bois '+score+' gorgées !';
     }
     scores[current_player-1].textContent="Score de "+players[current_player].textContent+" = "+players[current_player].value;
     displayOrHide(result_area);

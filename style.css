@@ -53,7 +53,7 @@ body {
   border: 0.5em solid white; 
 }
 
-.management-form {
+.pseudo-form {
   display: flex;
   flex-direction: column;
 }
@@ -135,4 +135,8 @@ button:active {
 
 .highlight_answer {
   font-weight: bold;
+}
+
+.selected_answer{
+  font-style: italic;
 }
