@@ -2,55 +2,45 @@
 
 :root {
   --color1 : white ;
-  --color2 : grey;
-  --color3 : indigo;
-  --color_background :#2B2B2B;
+  --color2 : #715AFF;
+  --color3 : #102E4A;
+  --color_background :#A682FF;
 }
 
 /* Général */
 
 body {
-  background-color: var(--color3);
-  color : white; 
+  background-color: var(--color_background);
+  color: white;
   font-family: Verdana,sans-serif ;
   font-size : 15px;
-  overflow: hidden; 
 }
 
 #menu_section {
+  overflow: hidden;
   align-items: center;
-  position: absolute;
-  padding: 1rem;
-  background-color: var(--color3);
+  box-sizing: border-box;
+  border: 1rem solid white;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
-  box-sizing: content-box; 
-  border: 0.5em solid white;
-}
-
-#logo{
-  width: 100px;
-}
-
-#logo2 {
-  position: absolute;
-  width: 70px;
-  bottom : 2vh;
-  left : 2vh;
+  min-height: 100vh;
+  position: relative;
+  background-color: var(--color_background);
+  padding: 2rem;
 }
 
 #param_section {
   align-items: center;
+  box-sizing: border-box;
+  border: 1rem solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--color_background);
+  padding: 2rem;
   position: absolute;
-  left : 8vw;
-  width: 25vw;
-  height: 50vh;
-  padding: 1rem;
-  background-color: lightskyblue;
-  color : black; 
-  border: 0.5em solid white; 
 }
 
 .pseudo-form {
@@ -118,6 +108,7 @@ button {
   text-align: center;
   text-decoration: none;
   z-index: 2;
+  cursor: pointer;
 }
 
 button:hover,
@@ -139,4 +130,15 @@ button:active {
 
 .selected_answer{
   font-style: italic;
+}
+
+#logo{
+  width: 100px;
+}
+
+#logo2 {
+  position: absolute;
+  width: 70px;
+  bottom : 2vh;
+  left : 2vh;
 }
