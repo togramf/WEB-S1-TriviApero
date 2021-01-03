@@ -9,6 +9,11 @@
 
 /* Général */
 
+.hidden_element {
+  display : none !important;
+  pointer-events: none;
+}
+
 body {
   background-color: var(--color_background);
   color: white;
@@ -119,10 +124,7 @@ button:active {
   transform: translateY(5px);
 }
 
-.hidden_element {
-  opacity : 0;
-  pointer-events: none;
-}
+
 
 .highlight_answer {
   font-weight: bold;
