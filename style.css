@@ -23,12 +23,45 @@ body {
 
 }
 
+h2{
+  color: white;
+  font-size : 75px;
+  text-align: center;
+  font-family: 'Fjalla One', sans-serif;
+}
+
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+		transform: translatey(-20px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+}
+
+#logo2,
+#logo{
+
+	box-sizing: border-box;
+	border: 2px white solid;
+	border-radius: 50%;
+	overflow: hidden;
+  box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+  animation: float 6s ease-in-out infinite;
+}
+
 svg{
   font-weight:bold;
   max-width:600px;
   height:100%;
   color: white;
-  text-shadow:white 1px 1px, white -1px 1px, white -1px -1px, white 1px -1px;
+  text-shadow:white 1px 1px, white -1px 1px, white -1px -1px, white 1px -1px; 
 }
 
 #menu_section {
@@ -46,6 +79,7 @@ svg{
 }
 
 #param_section {
+  overflow: hidden;
   align-items: center;
   box-sizing: border-box;
   border: 1rem solid white;
@@ -53,29 +87,28 @@ svg{
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+  position: relative;
   background: var(--color_background);
   padding: 2rem;
-  position: absolute;
 }
 
 .pseudo-form {
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
 }
 
 #game_section {
+  overflow: hidden;
   align-items: center;
-  position: absolute;
-  right: 8vw;
-  width: 50vw;
-  padding: 1rem;
-  background: var(--color3);
+  box-sizing: border-box;
+  border: 1rem solid white;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
-  box-sizing: content-box; 
-  border: 0.5em solid white;
+  min-height: 100vh;
+  position: relative;
+  background: var(--color_background);
+  padding: 2rem;
 }
 
 #play_area {
@@ -90,18 +123,6 @@ svg{
   padding: 1rem;
   margin-top: 0.5em;
   background-color:mediumpurple;
-  color : black; 
-  border: 0.5em solid white; 
-}
-
-#score_section {
-  align-items: center;
-  position: absolute;
-  left : 8vw;
-  width: 25vw;
-  height: 50vh;
-  padding: 1rem;
-  background: var(--color_background);
   color : black; 
   border: 0.5em solid white; 
 }
@@ -143,8 +164,10 @@ button:active {
   transform: translateY(5px);
 }
 
-
-
+@keyframes load {
+  0% { width: 0; }
+  100% { width: 68%; }
+}
 .highlight_answer {
   font-weight: bold;
 }
