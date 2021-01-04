@@ -75,11 +75,11 @@
                 <button type="button" id="play_game" class="button_all hidden_element">C'est parti !</button>
             </div>
         </div>
-        
+
         <div id="game_section" class="hidden_element">
-            <h1 id="round_compteur">Round 1</h1>
-            <h1 id="current_player">Player</h1>
             <div id="play_menu">
+                <h1 id="round_compteur">Round 1</h1>
+                <h1 id="current_player">Player</h1>
                 <p>Choisis tes paramètres : </p>
                 <select id="select_difficulty">
                     <option value="any_difficulty">Difficulté aléatoire</option>
@@ -91,29 +91,29 @@
                 <select id="select_category"></select>
                                 
                 <button type="button" id="start_question" class="button_all">Voir la question</button>
-            </div>
-
-            <div id="play_area" class="hidden_element">
-                <div id="question_area">
-                    <div class = "question multiple">
-                        <p id = "question_category">Catégorie</p>
-                        <p id = "question_difficulty">Difficulté</p>
-                        <p id = "question_wording">Énoncé de la question</p>
+                <div id="play_area" class="hidden_element">
+                    <div id="question_area">
+                        <div class = "question multiple">
+                            <p id = "question_category">Catégorie</p>
+                            <p id = "question_difficulty">Difficulté</p>
+                            <p id = "question_wording">Énoncé de la question</p>
+                        </div>
+                    </div>
+                    <div id="answer_area">
+                        <div class="answer">
+                            <p class="correct_answer">Proposition 1</p>
+                            <p class="incorrect_answer">Proposition 2</p>
+                        </div>
                     </div>
                 </div>
-                <div id="answer_area">
-                    <div class="answer">
-                        <p class="correct_answer">Proposition 1</p>
-                        <p class="incorrect_answer">Proposition 2</p>
-                    </div>
+    
+                <div id="result_area" class="hidden_element">
+                    <div id="result"></div>
+                    
+                    <button type="button" id="next_game" class="button_all">Au suivant !</button>
                 </div>
             </div>
 
-            <div id="result_area" class="hidden_element">
-                <div id="result"></div>
-                
-                <button type="button" id="next_game" class="button_all">Au suivant !</button>
-            </div>
             <div id="score_section" class="hidden_element">
 
                 <h2>Scores</h2>
@@ -123,7 +123,6 @@
 
         <div id="end_section" class="hidden_element"></div>
 
-        
         <script src="main.js"></script>
     </body>
 

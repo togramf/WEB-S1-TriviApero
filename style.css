@@ -8,15 +8,17 @@
   --color_background : linear-gradient(to top, #A682FF 0%,#715AFF 100%);
   --shadow: #533d4a;
 }
-/* Général */
+
+/* Général 
 .hidden_element {
   display : none !important;
   pointer-events: none;
 }
+*/
 
 body {
   color: white;
-  font-size : 20px;
+  font-size : 150%;
   text-align: center;
   font-family: 'Fjalla One', sans-serif;
   background: var(--color_background);
@@ -32,6 +34,8 @@ h2{
 li {
   list-style-type: none;
 }
+
+/*Animation*/
 
 @keyframes float {
 	0% {
@@ -50,7 +54,6 @@ li {
 
 #logo2,
 #logo{
-
 	box-sizing: border-box;
 	border: 2px white solid;
 	border-radius: 50%;
@@ -102,23 +105,22 @@ svg{
 
 #game_section {
   overflow: hidden;
-  align-items: center;
   box-sizing: border-box;
   border: 1rem solid white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-column-gap: 10vh;
+  position: absolute;
   min-height: 100vh;
-  position: relative;
+  min-width: 100vw;
   background: var(--color_background);
   padding: 2rem;
+  left:0;
 }
 
-#play_area {
-  padding: 1rem;
-  background-color:mediumpurple;
-  color : black; 
-  border: 0.5em solid white; 
+#play_menu{
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
 #result_area {
@@ -128,6 +130,34 @@ svg{
   background-color:mediumpurple;
   color : black; 
   border: 0.5em solid white; 
+}
+
+#play_area {
+  padding: 1rem;
+  background-color:mediumpurple;
+  color : black; 
+  border: 0.5em solid white; 
+}
+
+#round_compteur{
+  font-size: 50px;
+}
+
+#score_section{
+  box-sizing: border-box;
+	border: 2px white solid;
+	border-radius: 5%;
+	overflow: hidden;
+  box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+  animation: float 6s ease-in-out infinite; 
+}
+
+.highlight_answer {
+  font-weight: bold;
+}
+
+.selected_answer{
+  font-style: italic;
 }
 
 /* Éléments graphiques */
@@ -170,13 +200,6 @@ button:active {
 @keyframes load {
   0% { width: 0; }
   100% { width: 68%; }
-}
-.highlight_answer {
-  font-weight: bold;
-}
-
-.selected_answer{
-  font-style: italic;
 }
 
 #logo{
