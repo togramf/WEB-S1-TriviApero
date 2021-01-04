@@ -9,12 +9,11 @@
   --shadow: #533d4a;
 }
 
-/* Général 
+/* Général */
 .hidden_element {
   display : none !important;
   pointer-events: none;
 }
-*/
 
 body {
   color: white;
@@ -70,21 +69,7 @@ svg{
   text-shadow:white 1px 1px, white -1px 1px, white -1px -1px, white 1px -1px; 
 }
 
-#menu_section {
-  overflow: hidden;
-  align-items: center;
-  box-sizing: border-box;
-  border: 1rem solid white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-  position: relative;
-  background: var(--color_background);
-  padding: 2rem;
-}
-
-#param_section {
+#menu_section, #param_section, #game_section, #end_section {
   overflow: hidden;
   align-items: center;
   box-sizing: border-box;
@@ -104,36 +89,39 @@ svg{
 }
 
 #game_section {
-  overflow: hidden;
-  box-sizing: border-box;
-  border: 1rem solid white;
-  display: grid;
-  grid-template-columns: auto auto auto;
-  grid-column-gap: 10vh;
-  position: absolute;
+  width: 100vw;
   min-height: 100vh;
-  min-width: 100vw;
-  background: var(--color_background);
-  padding: 2rem;
-  left:0;
+  display: grid;
+  grid-template-columns: 55vw 35vh;
+  grid-column-gap: 10vh;
+  grid-template-rows: auto auto;
 }
 
 #play_menu{
-  grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column: 1;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  display: flex;
+  flex-direction: column;
 }
 
-#result_area {
-  align-items: center;
-  padding: 1rem;
-  margin-top: 0.5em;
+#play_area {
   background-color:mediumpurple;
   color : black; 
   border: 0.5em solid white; 
 }
 
-#play_area {
-  padding: 1rem;
+.highlight_answer {
+  font-weight: bold;
+}
+
+.selected_answer{
+  font-style: italic;
+}
+
+#result_area {
+  align-items: center;
+  margin-top: 0.5em;
   background-color:mediumpurple;
   color : black; 
   border: 0.5em solid white; 
@@ -143,7 +131,9 @@ svg{
   font-size: 50px;
 }
 
-#score_section{
+#score_section {
+  grid-column: 2;
+  min-height: 60vh;
   box-sizing: border-box;
 	border: 2px white solid;
 	border-radius: 5%;
@@ -152,12 +142,13 @@ svg{
   animation: float 6s ease-in-out infinite; 
 }
 
-.highlight_answer {
-  font-weight: bold;
-}
-
-.selected_answer{
-  font-style: italic;
+#drink_distribution{
+  grid-column: 2;
+  box-sizing: border-box;
+	border: 2px white solid;
+	border-radius: 5%;
+	overflow: hidden;
+  box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
 }
 
 /* Éléments graphiques */
@@ -170,7 +161,7 @@ button {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 19px;
-  margin-top: 10px;
+  margin-top: 20px;
   min-height: 60px;
   min-width: 120px;
   padding: 15px 15px;

@@ -3,13 +3,15 @@
 const section_menu = document.querySelector('#menu_section');
 const section_parametres = document.querySelector('#param_section');
 const section_jeu = document.querySelector('#game_section');
-const section_scores = document.querySelector('#score_section');
 const section_fin = document.querySelector('#end_section');
 
 const logo = document.querySelector('#logo2');
 
 const game_menu = document.querySelector('#game_menu');
 const play_menu = document.querySelector('#play_menu');
+const section_scores = document.querySelector('#score_section');
+
+const play_param = document.querySelector('#play_parameters');
 const play_area = document.querySelector('#play_area');
 const result_area = document.querySelector('#result_area');
 
@@ -43,9 +45,9 @@ function displayOrHide (element){
 
 function startClick(e){
     console.log("Lancement du Jeu !");
-    displayOrHide(section_menu); 
-    displayOrHide(logo);
-    displayOrHide(section_parametres);
+    displayOrHide(section_menu); //disparition menu
+    displayOrHide(logo);    //apparition logo 
+    displayOrHide(section_parametres);  //apparition parametres 
 }
 btn_start.addEventListener('click',startClick);
 
@@ -89,7 +91,6 @@ function playClick(e){
     document.querySelector('#current_player').textContent = "Tour de "+players[current_player].textContent;
     document.querySelector('#current_player').value = current_player;
     displayOrHide(section_jeu);
-    displayOrHide(section_scores);
 
     getCategories();
 }
@@ -137,7 +138,7 @@ async function getQuestion(){
         console.log("erreur");
     }
     displayOrHide(play_area);
-    displayOrHide(play_menu);
+    displayOrHide(play_param);
 }
 
 function createQuestion ( quest ) {
@@ -248,14 +249,16 @@ function nextClick (e) {
     document.querySelector('#current_player').textContent = "Tour de "+players[current_player].textContent;
     document.querySelector('#current_player').value = current_player;
     
+    displayOrHide(play_param);
     displayOrHide(play_area);
-    displayOrHide(play_menu);
     displayOrHide(result_area);
 }
 btn_next.addEventListener('click',nextClick);
 
 function endGame(){
     alert('Fin de la partie');
+    displayOrHide(section_fin);
+    displayOrHide(section_jeu);
     //affiche la fin de partie 
     //affiche les scores 
     //bouton pour relancer une partie avec même joueurs 

@@ -80,23 +80,26 @@
             <div id="play_menu">
                 <h1 id="round_compteur">Round 1</h1>
                 <h1 id="current_player">Player</h1>
-                <p>Choisis tes paramètres : </p>
-                <select id="select_difficulty">
-                    <option value="any_difficulty">Difficulté aléatoire</option>
-                    <option value="easy">Facile</option>
-                    <option value="medium">Moyenne</option>
-                    <option value="hard">Difficile</option>
-                </select>
+                <div id="play_parameters">
+                    <p>Choisis tes paramètres : </p>
+                    <select id="select_difficulty">
+                        <option value="any_difficulty">Difficulté aléatoire</option>
+                        <option value="easy">Facile</option>
+                        <option value="medium">Moyenne</option>
+                        <option value="hard">Difficile</option>
+                    </select>
 
-                <select id="select_category"></select>
+                    <select id="select_category"></select>
                                 
-                <button type="button" id="start_question" class="button_all">Voir la question</button>
+                    <button type="button" id="start_question" class="button_all">Voir la question</button>
+                </div>
+
                 <div id="play_area" class="hidden_element">
                     <div id="question_area">
                         <div class = "question multiple">
-                            <p id = "question_category">Catégorie</p>
+                            <h3 id = "question_category">Catégorie</h3>
                             <p id = "question_difficulty">Difficulté</p>
-                            <p id = "question_wording">Énoncé de la question</p>
+                            <h3 id = "question_wording">Énoncé de la question</h3>
                         </div>
                     </div>
                     <div id="answer_area">
@@ -106,22 +109,34 @@
                         </div>
                     </div>
                 </div>
-    
+        
                 <div id="result_area" class="hidden_element">
                     <div id="result"></div>
-                    
+                    <div id="drinks_to_give"></div>
                     <button type="button" id="next_game" class="button_all">Au suivant !</button>
                 </div>
             </div>
-
-            <div id="score_section" class="hidden_element">
-
+        
+            <div id="score_section" >
                 <h2>Scores</h2>
                 <ul id="scores_area"></ul>
             </div>
+
+            <div id="drink_distribution" class="hidden_element">
+                <h3>nb de gorgées à distribuer</h3>
+                <ul id="list_drinkers">
+
+                </ul>
+            </div>
         </div>
 
-        <div id="end_section" class="hidden_element"></div>
+        <div id="end_section" class="hidden_element">
+            <h1>Fin de la partie</h1>
+            <div>
+                <h2>Récapitulation des scores</h2>
+            </div>
+            <button type="button" id="new_game" class="button_all">Rejouer</button>
+        </div>
 
         <script src="main.js"></script>
     </body>
