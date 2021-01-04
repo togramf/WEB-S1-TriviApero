@@ -20,8 +20,10 @@ const questions = document.querySelector('#question_area');
 const answers = document.querySelector('#answer_area');
 const result = document.querySelector('#result');
 const scores_area = document.querySelector('#scores_area');
+const drink_area = document.querySelector('#drink_distribution');
 
 const liste_players = document.querySelector('.list_players');
+const liste_drinkers = document.querySelector('#list_drinkers');
 const nbPlayers = document.querySelector('#nbPlayersValueId');
 const slide_nbPlayers = document.querySelector('#nbPlayersId');
 
@@ -37,7 +39,6 @@ var current_player = 1;
 var current_round = 1;
 var drink_limit = 5;
 var nbDrinks = 0;
-
 
 function displayOrHide (element){
     element.classList.toggle("hidden_element");
@@ -175,6 +176,8 @@ btn_question.addEventListener('click', getQuestion);
 
 
 function submitAnswer ( e ){
+    displayOrHide(btn_next);
+
     document.querySelector('.correct_answer').classList.toggle('highlight_answer');
     e.currentTarget.classList.toggle('selected_answer');
     
@@ -192,9 +195,8 @@ function submitAnswer ( e ){
 
     if (e.currentTarget.classList.contains('correct_answer')){
         console.log("Bonne réponse ! ");
-        result.textContent = 'Bravo, bonne réponse '+players[current_player].textContent+' ! Distribue '+score+' gorgées en cliquant sur les scores des joueurs !';
+        result.textContent = 'Bravo, bonne réponse '+players[current_player].textContent+' ! Distribue '+score+' gorgées en cliquant sur les noms des joueurs !';
         giveDrinks(current_player);
-        //ici donner choix des joueurs qui doivent boire 
     } else {
         console.log("Mauvaise réponse ! ");
         result.textContent = 'Dommage, mauvaise réponse '+players[current_player].textContent+' ! Bois '+score+' gorgées !';
@@ -205,16 +207,39 @@ function submitAnswer ( e ){
 }
 
 //fonctions pas finies 
+function giveDrinks(player){
+    
+    displayOrHide(drink_area);
+    
+    document.querySelector('#drinks_to_give').textContent = "Il reste "+nbDrinks+" gorgées à distribuer";
+    
+    while (liste_drinkers.lastChild){
+        liste_drinkers.remove(liste_drinkers.lastChild);
+    }
+
+    for (var i = 1; i<=nbPlayers.value; i++){
+        var drinker = document.createElement('p');
+        drinker.textContent = players[i].textContent;
+        if (i<current_player){
+            drinker.addEventListener('click', drink(i-1, 1));
+            liste_drinkers.appendChild(drinker);
+        } else if (i>current_player){
+            drinker.addEventListener('click', drink(i, 1));
+            liste_drinkers.appendChild(drinker);
+        }
+    }
+    
+}
+
 function drink (player, nbDrink){
     
-        console.log('joueur ', players[player].textContent, " boit");
+        console.log('joueur ', players[player].textContent, " boit", nbDrink);
         players[player].value += nbDrink;
         nbDrinks -= nbDrink;
     
     if (nbDrinks == 0){
-        for (var i = 0; i<nbPlayers; i++){
-            scores [i].removeEventListener('click', drink (i+1, 1));
-        }
+        displayOrHide(btn_next);
+        displayOrHide(drink_area);
     }
 
     if (players[player].value >= drink_limit){
@@ -222,12 +247,7 @@ function drink (player, nbDrink){
     }
 }  
 
-function giveDrinks(player){
-    for (var i = 0; i<nbPlayers; i++){
-        scores [i].addEventListener('click', drink (i+1, 1));
-    }
-    scores[player-1].removeEventListener('click', drink (i+1, 1));
-}
+
 
 function nextClick (e) {
     document.querySelector('.correct_answer').classList.toggle('highlight_answer');
@@ -256,7 +276,6 @@ function nextClick (e) {
 btn_next.addEventListener('click',nextClick);
 
 function endGame(){
-    alert('Fin de la partie');
     displayOrHide(section_fin);
     displayOrHide(section_jeu);
     //affiche la fin de partie 
