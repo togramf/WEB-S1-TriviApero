@@ -19,8 +19,7 @@ body {
   font-size : 20px;
   text-align: center;
   font-family: 'Fjalla One', sans-serif;
-  background: var(--color_background)
-
+  background: var(--color_background);
 }
 
 h2{
@@ -28,6 +27,10 @@ h2{
   font-size : 75px;
   text-align: center;
   font-family: 'Fjalla One', sans-serif;
+}
+
+li {
+  list-style-type: none;
 }
 
 @keyframes float {
@@ -185,4 +188,5 @@ button:active {
   width: 70px;
   bottom : 2vh;
   left : 2vh;
+  z-index:2;
 }
