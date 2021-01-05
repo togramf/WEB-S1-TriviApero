@@ -60,6 +60,7 @@ function addPlayer() {
     player.value = 0; //sert a compter le score 
 
     liste_players.appendChild(player);
+    document.querySelector('#pseudo').value = "";
 
     slide_nbPlayers.value++;
     nbPlayers.value = slide_nbPlayers.value;
@@ -80,6 +81,13 @@ function addPlayer() {
     }
 }
 btn_add_player.addEventListener('click', addPlayer);
+
+document.querySelector('#pseudo').addEventListener("keyup", function(e) {
+    if (e.keyCode === 13){
+        addPlayer();
+        return false;
+    }
+});
 
 const players = liste_players.childNodes;
 const scores = scores_area.childNodes;
@@ -192,6 +200,7 @@ function submitAnswer ( e ){
     }
 
     nbDrinks = score;
+    console.log("nb de gorgées en jeu ", nbDrinks);
 
     if (e.currentTarget.classList.contains('correct_answer')){
         console.log("Bonne réponse ! ");
@@ -202,16 +211,14 @@ function submitAnswer ( e ){
         result.textContent = 'Dommage, mauvaise réponse '+players[current_player].textContent+' ! Bois '+score+' gorgées !';
         drink(current_player, score);
     }
-    scores[current_player-1].textContent="Score de "+players[current_player].textContent+" = "+players[current_player].value;
+    
     displayOrHide(result_area);
 }
 
 //fonctions pas finies 
 function giveDrinks(player){
     
-    displayOrHide(drink_area);
-    
-    document.querySelector('#drinks_to_give').textContent = "Il reste "+nbDrinks+" gorgées à distribuer";
+    document.querySelector('#drinks_to_give').textContent = "Il reste "+nbDrinks.value+" gorgées à distribuer";
     
     while (liste_drinkers.lastChild){
         liste_drinkers.remove(liste_drinkers.lastChild);
@@ -229,17 +236,21 @@ function giveDrinks(player){
         }
     }
     
+    drink_area.classList.remove("hidden_element");
 }
 
 function drink (player, nbDrink){
+
+        document.querySelector('#drinks_to_give').textContent = "Il reste "+nbDrinks+" gorgées à distribuer";
     
-        console.log('joueur ', players[player].textContent, " boit", nbDrink);
+        console.log('joueur ', players[player].textContent, " boit", nbDrink, " gorgée(s)");
         players[player].value += nbDrink;
         nbDrinks -= nbDrink;
+        majScores();
     
     if (nbDrinks == 0){
         displayOrHide(btn_next);
-        displayOrHide(drink_area);
+        drink_area.classList.add("hidden_element");
     }
 
     if (players[player].value >= drink_limit){
@@ -247,7 +258,11 @@ function drink (player, nbDrink){
     }
 }  
 
-
+function majScores(){
+    for (var i =1; i<=nbPlayers.value; i++){
+        scores[current_player-1].textContent="Score de "+players[current_player].textContent+" = "+players[current_player].value;
+    }
+}
 
 function nextClick (e) {
     document.querySelector('.correct_answer').classList.toggle('highlight_answer');
