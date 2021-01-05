@@ -103,6 +103,7 @@ svg{
   grid-row-end: 3;
   display: flex;
   flex-direction: column;
+
 }
 
 #play_area {
@@ -128,18 +129,18 @@ svg{
 }
 
 #round_compteur{
-  font-size: 50px;
+  font-size: 200%;
 }
 
 #score_section {
   grid-column: 2;
-  min-height: 60vh;
   box-sizing: border-box;
 	border: 2px white solid;
 	border-radius: 5%;
 	overflow: hidden;
   box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
   animation: float 6s ease-in-out infinite; 
+  text-align: center;
 }
 
 #drink_distribution{
@@ -203,4 +204,5 @@ button:active {
   bottom : 2vh;
   left : 2vh;
   z-index:2;
+  margin: 0.2em;
 }
