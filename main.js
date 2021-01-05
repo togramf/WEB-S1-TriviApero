@@ -31,6 +31,7 @@ const btn_start = document.querySelector('#start_game');
 const btn_play = document.querySelector('#play_game');
 const btn_question = document.querySelector('#start_question');
 const btn_next = document.querySelector('#next_game');
+const btn_restart = document.querySelector('#new_game');
 
 const btn_add_player = document.querySelector('#add_pseudo');
 
@@ -205,49 +206,56 @@ function submitAnswer ( e ){
     if (e.currentTarget.classList.contains('correct_answer')){
         console.log("Bonne réponse ! ");
         result.textContent = 'Bravo, bonne réponse '+players[current_player].textContent+' ! Distribue '+score+' gorgées en cliquant sur les noms des joueurs !';
-        giveDrinks(current_player);
+        giveDrinks();
     } else {
         console.log("Mauvaise réponse ! ");
         result.textContent = 'Dommage, mauvaise réponse '+players[current_player].textContent+' ! Bois '+score+' gorgées !';
         drink(current_player, score);
     }
-    
+
     displayOrHide(result_area);
 }
 
 //fonctions pas finies 
-function giveDrinks(player){
-    
+function giveDrinks(){
+    const player = current_player;
     document.querySelector('#drinks_to_give').textContent = "Il reste "+nbDrinks.value+" gorgées à distribuer";
     
-    while (liste_drinkers.lastChild){
-        liste_drinkers.remove(liste_drinkers.lastChild);
-    }
-
-    for (var i = 1; i<=nbPlayers.value; i++){
-        var drinker = document.createElement('p');
-        drinker.textContent = players[i].textContent;
-        if (i<current_player){
-            drinker.addEventListener('click', drink(i-1, 1));
-            liste_drinkers.appendChild(drinker);
-        } else if (i>current_player){
-            drinker.addEventListener('click', drink(i, 1));
-            liste_drinkers.appendChild(drinker);
+    if (slide_nbPlayers.value == 2){
+        if (player == 1){
+            drink(2, nbDrinks);
+        } else {
+            drink(1, nbDrinks);
         }
+    } else {
+        while (liste_drinkers.lastChild){
+            liste_drinkers.remove(liste_drinkers.lastChild);
+        }
+
+        for (var i = 1; i<=slide_nbPlayers.value; i++){
+            if (i != player){
+                var drinker = document.createElement('p');
+                drinker.textContent = players[i].textContent;
+            
+                drinker.addEventListener('click', drink(i, 1));
+                liste_drinkers.appendChild(drinker);
+            }
+        }
+        drink_area.classList.remove("hidden_element");
     }
     
-    drink_area.classList.remove("hidden_element");
+    
 }
 
 function drink (player, nbDrink){
-
+        console.log('joueur ', players[player].textContent, " boit", nbDrink, " gorgée(s)");
         document.querySelector('#drinks_to_give').textContent = "Il reste "+nbDrinks+" gorgées à distribuer";
     
-        console.log('joueur ', players[player].textContent, " boit", nbDrink, " gorgée(s)");
         players[player].value += nbDrink;
         nbDrinks -= nbDrink;
         majScores();
-    
+        
+
     if (nbDrinks == 0){
         displayOrHide(btn_next);
         drink_area.classList.add("hidden_element");
@@ -259,12 +267,13 @@ function drink (player, nbDrink){
 }  
 
 function majScores(){
-    for (var i =1; i<=nbPlayers.value; i++){
-        scores[current_player-1].textContent="Score de "+players[current_player].textContent+" = "+players[current_player].value;
+    for (var i =1; i<=slide_nbPlayers.value; i++){
+        scores[i-1].textContent="Score de "+players[i].textContent+" = "+players[i].value;
     }
 }
 
 function nextClick (e) {
+    
     document.querySelector('.correct_answer').classList.toggle('highlight_answer');
     
     players[current_player].classList.toggle("current_player");
@@ -287,6 +296,7 @@ function nextClick (e) {
     displayOrHide(play_param);
     displayOrHide(play_area);
     displayOrHide(result_area);
+    drink_area.classList.add("hidden_element");
 }
 btn_next.addEventListener('click',nextClick);
 
@@ -298,3 +308,14 @@ function endGame(){
     //bouton pour relancer une partie avec même joueurs 
     //bouton pour relancer du début 
 }
+
+
+function restartClick(e){
+    while (liste_players.lastChild){
+        liste_players.removeChild(lastChild);
+    }
+
+    displayOrHide(section_parametres);
+    displayOrHide(section_fin);
+}
+btn_restart.addEventListener('click', restartClick);
