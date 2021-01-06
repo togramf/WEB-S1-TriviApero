@@ -246,8 +246,8 @@ button:active {
 #logo2 {
   position: absolute;
   width: 70px;
-  bottom : 0.5em;
-  left : 0.5em;
+  bottom : 1em;
+  left : 1em;
   z-index:2;
 }
 
