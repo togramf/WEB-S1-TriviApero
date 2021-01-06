@@ -59,23 +59,25 @@ btn_start.addEventListener('click',startClick);
 
 
 function addPlayer() {
-    var player = document.createElement('p');
-    
-    player.textContent = document.querySelector('#pseudo').value;
-    player.value = 0; //sert a compter le score 
+    if (document.querySelector('#pseudo').value != ""){
+        var player = document.createElement('p');
 
-    liste_players.appendChild(player);
-    document.querySelector('#pseudo').value = "";
+        player.textContent = document.querySelector('#pseudo').value;
+        player.value = 0; //sert a compter le score 
 
-    slide_nbPlayers.value++;
-    nbPlayers.value = slide_nbPlayers.value;
+        liste_players.appendChild(player);
+        document.querySelector('#pseudo').value = "";
 
-    player_score = document.createElement('p');
-    player_score.value = player.value;
-    
-    scores_area.appendChild(player_score);
-    
-    console.log("Ajout de ", player.textContent);
+        slide_nbPlayers.value++;
+        nbPlayers.value = slide_nbPlayers.value;
+
+        player_score = document.createElement('p');
+        player_score.value = player.value;
+        
+        scores_area.appendChild(player_score);
+        
+        console.log("Ajout de ", player.textContent);
+    }    
 
     if (slide_nbPlayers.value == 2) {
         displayOrHide(btn_play);
@@ -364,12 +366,7 @@ function endGame (){
 
     displayOrHide(section_fin);
     displayOrHide(section_jeu);
-    
-    //affiche les scores 
-    //bouton pour relancer une partie avec même joueurs 
-    //bouton pour relancer du début 
 }
-
 
 function restartClick(e){
     while (recap_area.lastChild){
