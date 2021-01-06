@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Fjalla+One);
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 
 /* rappel : #id et .class */
 
@@ -51,16 +52,6 @@ li {
 	}
 }
 
-#logo2,
-#logo{
-	box-sizing: border-box;
-	border: 2px white solid;
-	border-radius: 50%;
-	overflow: hidden;
-  box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-  animation: float 6s ease-in-out infinite;
-}
-
 svg{
   font-weight:bold;
   max-width:600px;
@@ -90,7 +81,6 @@ svg{
 
 #game_section {
   width: 100vw;
-  min-height: 100vh;
   display: grid;
   grid-template-columns: 55vw 35vh;
   grid-column-gap: 10vh;
@@ -103,18 +93,46 @@ svg{
   grid-row-end: 3;
   display: flex;
   flex-direction: column;
-
 }
 
 #play_area {
   background-color:mediumpurple;
   color : black; 
-  border: 0.5em solid white; 
+  border: 0.2em solid white;
+  margin: 0.2em;
+}
+
+#question_area{
+  background-color:mediumpurple;
+  color : black; 
+  border: 0.1em solid black;
+  margin: 0.2em;
+  border-radius: 1em;
+}
+
+#question_category,
+#question_difficulty{
+  font-size: 0.75em;
+}
+
+#question_wording{
+  font: bold;
+  font-size: 1.3em;
+}
+
+#question_area{
+  font-size: 1em;
+}
+
+#question_wording, 
+#answer_area{
+  font-family: 'Staatliches', cursive;
 }
 
 .highlight_answer {
   font-weight: bold;
 }
+
 
 .selected_answer{
   font-style: italic;
@@ -129,18 +147,18 @@ svg{
 }
 
 #round_compteur{
-  font-size: 200%;
+  font-size: 50px;
 }
 
 #score_section {
   grid-column: 2;
+  min-height: 60vh;
   box-sizing: border-box;
 	border: 2px white solid;
 	border-radius: 5%;
 	overflow: hidden;
   box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
   animation: float 6s ease-in-out infinite; 
-  text-align: center;
 }
 
 #drink_distribution{
@@ -194,6 +212,17 @@ button:active {
   100% { width: 68%; }
 }
 
+
+#logo2,
+#logo{
+	box-sizing: border-box;
+	border: 2px white solid;
+	border-radius: 50%;
+	overflow: hidden;
+  box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+  animation: float 6s ease-in-out infinite;
+}
+
 #logo{
   width: 100px;
 }
@@ -201,8 +230,7 @@ button:active {
 #logo2 {
   position: absolute;
   width: 70px;
-  bottom : 2vh;
-  left : 2vh;
+  bottom : 0.5em;
+  left : 0.5em;
   z-index:2;
-  margin: 0.2em;
 }

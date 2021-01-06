@@ -50,8 +50,8 @@
         <div id="param_section" class="hidden_element">
             <div id="players">
                 <h2>Participants</h2>
-                <div id="list_players"> 
-                </div>
+                <ul class="list_players"> 
+                </ul>
             </div>
             
             <div id="game_menu">
@@ -68,7 +68,7 @@
                      </div>
                      <div>
                         <p> Partie en <output name="nbDrinkValue" id="nbDrinkValueId" >5</output> gorgées :</p>
-                        <input type="range" name="nbDrink" id="nbDrinkId" value="5" min="5" max="50" step="5" class="slider" oninput="nbDrinkValueId.value=nbDrinkId.value">
+                        <input type="range" name="nbDrink" id="nbDrinkId" value="5" min="5" max="50" class="slider" oninput="nbDrinkValueId.value=nbDrinkId.value">
                     </div>
                 </form>
 
@@ -80,30 +80,25 @@
             <div id="play_menu">
                 <h1 id="round_compteur">Round 1</h1>
                 <h1 id="current_player">Player</h1>
-                <div id="play_parameters">
-                    <p>Choisis tes paramètres : </p>
-                    <select id="select_difficulty">
-                        <option value="any_difficulty">Difficulté aléatoire</option>
-                        <option value="easy">Facile</option>
-                        <option value="medium">Moyenne</option>
-                        <option value="hard">Difficile</option>
-                    </select>
+                <p>Choisis tes paramètres : </p>
+                <select id="select_difficulty">
+                    <option value="any_difficulty">Difficulté aléatoire</option>
+                    <option value="easy">Facile</option>
+                    <option value="medium">Moyenne</option>
+                    <option value="hard">Difficile</option>
+                </select>
 
-                    <select id="select_category">
-                        <option value="any_category">Catégorie aléatoire</option>
-                    </select>
+                <select id="select_category"></select>
                                 
-                    <button type="button" id="start_question" class="button_all">Voir la question</button>
-                </div>
-
+                <button type="button" id="start_question" class="button_all">Voir la question</button>
                 <div id="play_area" class="hidden_element">
                     <div id="question_area">
                         <div class = "question multiple">
-                            <h3 id = "question_category">Catégorie</h3>
+                            <p id = "question_category">Catégorie</p>
                             <p id = "question_difficulty">Difficulté</p>
-                            <h3 id = "question_wording">Énoncé de la question</h3>
                         </div>
                     </div>
+                    <p id = "question_wording">Énoncé de la question</p>
                     <div id="answer_area">
                         <div class="answer">
                             <p class="correct_answer">Proposition 1</p>
@@ -111,30 +106,21 @@
                         </div>
                     </div>
                 </div>
-        
+    
                 <div id="result_area" class="hidden_element">
                     <div id="result"></div>
+                    
                     <button type="button" id="next_game" class="button_all">Au suivant !</button>
                 </div>
             </div>
-        
-            <div id="score_section" >
+
+            <div id="score_section" class="hidden_element">
                 <h2>Scores</h2>
-                <div id="scores_area"></div>
-            </div>
-
-            <div id="drink_distribution" class="hidden_element">
-                <h3 id="drinks_to_give">nb de gorgées à distribuer</h3>
-                <div id="list_drinkers"></div>
+                <ul id="scores_area"></ul>
             </div>
         </div>
 
-        <div id="end_section" class="hidden_element">
-            <h1>Fin de la partie</h1>
-            <h2>Récapitulation des scores</h2>
-            <div id="recap_area"></div>
-            <button type="button" id="new_game" class="button_all">Rejouer</button>
-        </div>
+        <div id="end_section" class="hidden_element"></div>
 
         <script src="main.js"></script>
     </body>
