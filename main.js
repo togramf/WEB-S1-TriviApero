@@ -38,8 +38,12 @@ const btn_add_player = document.querySelector('#add_pseudo');
 
 var current_player = 1;
 var current_round = 1;
+var nb_options = 0;
 var drink_limit = 5;
 var nbDrinksInGame = 0;
+
+const players = liste_players.childNodes;
+const scores = scores_area.childNodes;
 
 function displayOrHide (element){
     element.classList.toggle("hidden_element");
@@ -88,9 +92,6 @@ document.querySelector('#pseudo').addEventListener("keyup", function(e) {
         return false;
     }
 });
-
-const players = liste_players.childNodes;
-const scores = scores_area.childNodes;
 
 function playClick(e){
     drink_limit = document.querySelector('#nbDrinkId').value;
@@ -168,9 +169,9 @@ function createQuestion ( quest ) {
 
     if (diff == 'easy'){
         nbDrinksInGame = 1;
-    } else if (diff ='medium'){
+    } else if (diff =='medium'){
         nbDrinksInGame = 2;
-    } else if (diff = 'hard'){
+    } else if (diff == 'hard'){
         nbDrinksInGame = 3;
     }
 
@@ -179,7 +180,7 @@ function createQuestion ( quest ) {
         answers.removeChild(answers.lastChild);
     }
 
-    var nb_options = 1 + quest.incorrect_answers.length; 
+    nb_options = 1 + quest.incorrect_answers.length; 
     var position_correct = Math.round((nb_options -1) * Math.random()) + 1;
     console.log(nb_options, position_correct);
 
@@ -194,6 +195,7 @@ function createQuestion ( quest ) {
             newProposition.classList.add("correct_answer");
             newProposition.textContent = quest.correct_answer;
         }
+        newProposition.value = i;
         newProposition.addEventListener('click', submitAnswer);
         answers.appendChild(newProposition);
     }    
@@ -205,7 +207,13 @@ function submitAnswer ( e ){
     //mise en valeur de la réponse choisie et de la réponse correcte 
     document.querySelector('.correct_answer').classList.toggle('highlight_answer');
     e.currentTarget.classList.toggle('selected_answer');
-    
+
+    //remove les ecouteurs sur les propositions 
+    var propositions  = answers.childNodes;
+    for (var i = 0; i< propositions.length; i++){
+        propositions[i].removeEventListener('click', submitAnswer);
+    }
+
     console.log("nb de gorgées en jeu ", nbDrinksInGame);
     
     //Verification de la reponse 
@@ -268,7 +276,7 @@ function correctAnswer(){
             }
         }
         //affichage de la zone de distribution des gorgees 
-        displayOrHide(drink_area);
+        drink_area.classList.remove("hidden_element");
     }
 }
 

@@ -24,11 +24,16 @@ body {
   background: var(--color_background);
 }
 
+h1{
+  line-height: 0vmin;
+}
+
 h2{
   color: white;
   font-size : 75px;
   text-align: center;
   font-family: 'Fjalla One', sans-serif;
+  line-height: 0vmin;
 }
 
 li {
@@ -79,6 +84,10 @@ svg{
   flex-direction: column;  
 }
 
+#nbPlayersId {
+  pointer-events: none;
+}
+
 #game_section {
   width: 100vw;
   display: grid;
@@ -110,8 +119,13 @@ svg{
   border-radius: 1em;
 }
 
-#question_category,
+#question_category{
+  font-size: 0.9em;
+  font: bold;
+  margin-bottom: 0em;
+}
 #question_difficulty{
+  margin-top: 0.2em;
   font-size: 0.75em;
 }
 
@@ -133,7 +147,6 @@ svg{
   font-weight: bold;
 }
 
-
 .selected_answer{
   font-style: italic;
 }
@@ -143,11 +156,14 @@ svg{
   margin-top: 0.5em;
   background-color:mediumpurple;
   color : black; 
-  border: 0.5em solid white; 
+  border: 0.2em solid white; 
+  line-height: 8vh;
 }
 
 #round_compteur{
   font-size: 50px;
+  font-family: 'Staatliches';
+  font-stretch: expanded;
 }
 
 #score_section {
@@ -233,4 +249,35 @@ button:active {
   bottom : 0.5em;
   left : 0.5em;
   z-index:2;
+}
+
+@media (max-width: 768px) { 
+  #game_section {
+
+    grid-template-rows:  auto auto;
+    grid-gap: 2em;
+  }
+
+  #play_menu{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 1;
+  }
+
+  #score_section {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 2;
+    min-height: auto;
+    width: auto;
+  }
+
+  #drink_distribution{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    background: var(--color_background);
+    grid-row: 1;
+    width: 40vw;
+    z-index: 2;
+  }
 }
