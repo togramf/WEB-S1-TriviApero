@@ -14,6 +14,7 @@ const section_scores = document.querySelector('#score_section');
 const play_param = document.querySelector('#play_parameters');
 const play_area = document.querySelector('#play_area');
 const result_area = document.querySelector('#result_area');
+const recap_area = document.querySelector('#recap_area');
 
 const categories = document.querySelector('#select_category');
 const questions = document.querySelector('#question_area');
@@ -22,7 +23,7 @@ const result = document.querySelector('#result');
 const scores_area = document.querySelector('#scores_area');
 const drink_area = document.querySelector('#drink_distribution');
 
-const liste_players = document.querySelector('.list_players');
+const liste_players = document.querySelector('#list_players');
 const liste_drinkers = document.querySelector('#list_drinkers');
 const nbPlayers = document.querySelector('#nbPlayersValueId');
 const slide_nbPlayers = document.querySelector('#nbPlayersId');
@@ -35,11 +36,14 @@ const btn_restart = document.querySelector('#new_game');
 
 const btn_add_player = document.querySelector('#add_pseudo');
 
-const stop_game = false; 
+const players = liste_players.childNodes;
+const scores = scores_area.childNodes;
+const drinkers = liste_drinkers.childNodes;
+
 var current_player = 1;
 var current_round = 1;
 var drink_limit = 5;
-var nbDrinks = 0;
+var nbDrinksInGame = 0;
 
 function displayOrHide (element){
     element.classList.toggle("hidden_element");
@@ -55,7 +59,7 @@ btn_start.addEventListener('click',startClick);
 
 
 function addPlayer() {
-    var player = document.createElement('li');
+    var player = document.createElement('p');
     
     player.textContent = document.querySelector('#pseudo').value;
     player.value = 0; //sert a compter le score 
@@ -66,9 +70,8 @@ function addPlayer() {
     slide_nbPlayers.value++;
     nbPlayers.value = slide_nbPlayers.value;
 
-    player_score = document.createElement('li');
+    player_score = document.createElement('p');
     player_score.value = player.value;
-    player_score.textContent = "Score de "+player.textContent+" = "+player.value;
     
     scores_area.appendChild(player_score);
     
@@ -90,11 +93,10 @@ document.querySelector('#pseudo').addEventListener("keyup", function(e) {
     }
 });
 
-const players = liste_players.childNodes;
-const scores = scores_area.childNodes;
 
 function playClick(e){
     drink_limit = document.querySelector('#nbDrinkId').value;
+    majScores();
     console.log("Partie en ", drink_limit,"gorgées ! Lancement du Jeu !");
     displayOrHide(section_parametres);
     players[current_player].classList.toggle("current_player");
@@ -132,10 +134,14 @@ async function getQuestion(){
     var cat = document.querySelector('#select_category').value;
     var diff = document.querySelector('#select_difficulty').value;
     console.log(cat, diff);
-    if (diff != "any_difficulty"){
-        url = 'https://opentdb.com/api.php?amount=1&category='+cat+'&difficulty='+diff;
-    } else {
+    if ((cat == "any_category") && (diff == "any_difficulty")){
+        url = 'https://opentdb.com/api.php?amount=1';
+    } else if (diff == "any_difficulty"){
         url = 'https://opentdb.com/api.php?amount=1&category='+cat;
+    } else if (cat == "any_category"){
+        url = 'https://opentdb.com/api.php?amount=1&difficulty='+diff;
+    } else {
+        url = 'https://opentdb.com/api.php?amount=1&category='+cat+'&difficulty='+diff;
     }
     const response = await fetch(url);
     const body = await response.json();
@@ -154,10 +160,23 @@ async function getQuestion(){
 function createQuestion ( quest ) {
     console.log(quest.category);
 
+    //Recuperation de la question 
     document.querySelector('#question_category').textContent = quest.category;
     document.querySelector('#question_difficulty').textContent = quest.difficulty;
     document.querySelector('#question_wording').textContent = quest.question;
 
+    //Recuperation du nombre de gorgées en jeu 
+    var diff = document.querySelector('#question_difficulty').textContent;
+
+    if (diff == 'easy'){
+        nbDrinksInGame = 1;
+    } else if (diff ='medium'){
+        nbDrinksInGame = 2;
+    } else if (diff = 'hard'){
+        nbDrinksInGame = 3;
+    }
+
+    //Remplissage de la zone de reponses possibles (ordre aléatoire)
     while (answers.lastChild){
         answers.removeChild(answers.lastChild);
     }
@@ -185,91 +204,110 @@ btn_question.addEventListener('click', getQuestion);
 
 
 function submitAnswer ( e ){
-    displayOrHide(btn_next);
-
+    //mise en valeur de la réponse choisie et de la réponse correcte 
     document.querySelector('.correct_answer').classList.toggle('highlight_answer');
     e.currentTarget.classList.toggle('selected_answer');
     
-    var diff = document.querySelector('#question_difficulty');
-    var score; 
-    if (diff == 'easy'){
-        score = 1;
-    } else if (diff ='medium'){
-        score = 2;
-    } else if (diff = 'hard'){
-        score = 3;
-    }
-
-    nbDrinks = score;
-    console.log("nb de gorgées en jeu ", nbDrinks);
-
+    console.log("nb de gorgées en jeu ", nbDrinksInGame);
+    
+    //Verification de la reponse 
     if (e.currentTarget.classList.contains('correct_answer')){
-        console.log("Bonne réponse ! ");
-        result.textContent = 'Bravo, bonne réponse '+players[current_player].textContent+' ! Distribue '+score+' gorgées en cliquant sur les noms des joueurs !';
-        giveDrinks();
+        correctAnswer();
     } else {
-        console.log("Mauvaise réponse ! ");
-        result.textContent = 'Dommage, mauvaise réponse '+players[current_player].textContent+' ! Bois '+score+' gorgées !';
-        drink(current_player, score);
+        incorrectAnswer();
     }
 
+    //affichage de la zone de resultat 
     displayOrHide(result_area);
 }
 
-//fonctions pas finies 
-function giveDrinks(){
+function correctAnswer(){
+
+    displayOrHide(btn_next);
+    console.log("Bonne réponse ! ");
+    
     const player = current_player;
-    document.querySelector('#drinks_to_give').textContent = "Il reste "+nbDrinks.value+" gorgées à distribuer";
+    console.log("Il reste ",nbDrinksInGame," gorgée(s) à distribuer");
     
     if (slide_nbPlayers.value == 2){
-        if (player == 1){
-            drink(2, nbDrinks);
+        //affichage de la zone de résultat 
+        if (nbDrinksInGame>1){
+            result.textContent = 'Bravo, bonne réponse '+players[current_player].textContent+' ! Ton adversaire boit '+nbDrinksInGame+' gorgées !';
         } else {
-            drink(1, nbDrinks);
+            result.textContent = 'Bravo, bonne réponse '+players[current_player].textContent+' ! Ton adversaire boit '+nbDrinksInGame+' gorgée !';
         }
-    } else {
+        
+        if (player == 1){
+            drink(2, nbDrinksInGame);
+        } else {
+            drink(1, nbDrinksInGame);
+        }
+
+    }else{
+        //affichage de la zone de résultat 
+        if (nbDrinksInGame>1){
+            result.textContent = 'Bravo, bonne réponse '+players[current_player].textContent+' ! Distribue '+nbDrinksInGame+' gorgées en cliquant sur les noms des joueurs !';
+        } else {
+            result.textContent = 'Bravo, bonne réponse '+players[current_player].textContent+' ! Distribue '+nbDrinksInGame+' gorgée en cliquant sur les noms des joueurs !';
+        }
+
+        //nettoyage la zone de distribution 
         while (liste_drinkers.lastChild){
             liste_drinkers.remove(liste_drinkers.lastChild);
         }
 
-        for (var i = 1; i<=slide_nbPlayers.value; i++){
-            if (i != player){
-                var drinker = document.createElement('p');
-                drinker.textContent = players[i].textContent;
-            
-                drinker.addEventListener('click', drink(i, 1));
-                liste_drinkers.appendChild(drinker);
+        //remplissage de la zone de distribution des gorgees 
+        document.querySelector('#drinks_to_give').textContent = "Il reste "+nbDrinksInGame+" gorgées à distribuer";
+    
+        for (var i = 1 ; i <= slide_nbPlayers.value ; i++){
+            if (!players[i].classList.contains("current_player")){
+                console.log(players[i], i);
+                var newDrinker = document.createElement('div');
+                newDrinker.textContent = players[i].textContent;
+                newDrinker.value = i;
+                newDrinker.addEventListener('click', drinkClick);
+                liste_drinkers.appendChild(newDrinker);
             }
         }
-        drink_area.classList.remove("hidden_element");
+        //affichage de la zone de distribution des gorgees 
+        displayOrHide(drink_area);
     }
-    
-    
+}
+
+function drinkClick (e){ 
+    drinker = e.currentTarget;
+    drink(drinker.value, 1);
+}
+
+function incorrectAnswer(){
+    console.log("Mauvaise réponse ! ");
+    if (nbDrinksInGame>1){
+        result.textContent = 'Dommage, mauvaise réponse '+players[current_player].textContent+' ! Bois '+nbDrinksInGame+' gorgées !';
+    } else {
+        result.textContent = 'Dommage, mauvaise réponse '+players[current_player].textContent+' ! Bois '+nbDrinksInGame+' gorgée !';
+    }
+    drink(current_player, nbDrinksInGame);
 }
 
 function drink (player, nbDrink){
-        console.log('joueur ', players[player].textContent, " boit", nbDrink, " gorgée(s)");
-        document.querySelector('#drinks_to_give').textContent = "Il reste "+nbDrinks+" gorgées à distribuer";
+    console.log(players[player].textContent, " boit ", nbDrink);
+    nbDrinksInGame -= nbDrink;
+    document.querySelector('#drinks_to_give').textContent = "Il reste "+nbDrinksInGame+" gorgées à distribuer";
     
-        players[player].value += nbDrink;
-        nbDrinks -= nbDrink;
-        majScores();
-        
+    players[player].value += nbDrink;
+    majScores();
 
-    if (nbDrinks == 0){
-        displayOrHide(btn_next);
+    if (nbDrinksInGame == 0){
+        btn_next.classList.remove("hidden_element");
         drink_area.classList.add("hidden_element");
     }
-
-    if (players[player].value >= drink_limit){
-        endGame();
-    }
-}  
+}
 
 function majScores(){
     for (var i =1; i<=slide_nbPlayers.value; i++){
         scores[i-1].textContent="Score de "+players[i].textContent+" = "+players[i].value;
     }
+    testFin();
 }
 
 function nextClick (e) {
@@ -287,23 +325,40 @@ function nextClick (e) {
     
     players[current_player].classList.toggle("current_player");
 
-    console.log(players[current_player-1]);
-    console.log(players[current_player]);
-
     document.querySelector('#current_player').textContent = "Tour de "+players[current_player].textContent;
     document.querySelector('#current_player').value = current_player;
     
     displayOrHide(play_param);
     displayOrHide(play_area);
     displayOrHide(result_area);
-    drink_area.classList.add("hidden_element");
 }
 btn_next.addEventListener('click',nextClick);
 
-function endGame(){
+function testFin () {    
+    var fin = 0;
+    for (var i = 1; i <= slide_nbPlayers.value ; i++){
+        if(players[i].value >= drink_limit && fin == 0){
+            console.log("fin de la partie");
+            fin = 1;
+            btn_next.textContent = "Fin de la partie";
+            btn_next.removeEventListener('click',nextClick);
+            btn_next.addEventListener('click', endGame);
+        }
+    }   
+}
+
+function endGame (){
+    //affiche la fin de partie 
+    for (var i = 1 ; i <= slide_nbPlayers.value ; i++){
+        var recap = document.createElement('p');
+        recap.textContent = scores[i-1].textContent;
+        recap.value = scores[i-1].value;
+        recap_area.appendChild(recap);
+    }
+
     displayOrHide(section_fin);
     displayOrHide(section_jeu);
-    //affiche la fin de partie 
+    
     //affiche les scores 
     //bouton pour relancer une partie avec même joueurs 
     //bouton pour relancer du début 
@@ -311,11 +366,22 @@ function endGame(){
 
 
 function restartClick(e){
-    while (liste_players.lastChild){
-        liste_players.removeChild(lastChild);
+    while (recap_area.lastChild){
+        recap_area.removeChild(recap_area.lastChild);
     }
+    while (liste_players.lastChild){
+        liste_players.removeChild(liste_players.lastChild);
+        
+    }
+    while (scores_area.lastChild){
+        scores_area.removeChild(scores_area.lastChild);
+    }
+    
+    nbPlayers.value = 0;
+    slide_nbPlayers.value = 0;
 
     displayOrHide(section_parametres);
     displayOrHide(section_fin);
+    displayOrHide(btn_play);
 }
 btn_restart.addEventListener('click', restartClick);

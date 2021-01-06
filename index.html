@@ -50,8 +50,8 @@
         <div id="param_section" class="hidden_element">
             <div id="players">
                 <h2>Participants</h2>
-                <ul class="list_players"> 
-                </ul>
+                <div id="list_players"> 
+                </div>
             </div>
             
             <div id="game_menu">
@@ -68,7 +68,7 @@
                      </div>
                      <div>
                         <p> Partie en <output name="nbDrinkValue" id="nbDrinkValueId" >5</output> gorgées :</p>
-                        <input type="range" name="nbDrink" id="nbDrinkId" value="5" min="5" max="50" class="slider" oninput="nbDrinkValueId.value=nbDrinkId.value">
+                        <input type="range" name="nbDrink" id="nbDrinkId" value="5" min="5" max="50" step="5" class="slider" oninput="nbDrinkValueId.value=nbDrinkId.value">
                     </div>
                 </form>
 
@@ -89,7 +89,9 @@
                         <option value="hard">Difficile</option>
                     </select>
 
-                    <select id="select_category"></select>
+                    <select id="select_category">
+                        <option value="any_category">Catégorie aléatoire</option>
+                    </select>
                                 
                     <button type="button" id="start_question" class="button_all">Voir la question</button>
                 </div>
@@ -118,7 +120,7 @@
         
             <div id="score_section" >
                 <h2>Scores</h2>
-                <ul id="scores_area"></ul>
+                <div id="scores_area"></div>
             </div>
 
             <div id="drink_distribution" class="hidden_element">
@@ -129,9 +131,8 @@
 
         <div id="end_section" class="hidden_element">
             <h1>Fin de la partie</h1>
-            <div>
-                <h2>Récapitulation des scores</h2>
-            </div>
+            <h2>Récapitulation des scores</h2>
+            <div id="recap_area"></div>
             <button type="button" id="new_game" class="button_all">Rejouer</button>
         </div>
 
