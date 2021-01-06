@@ -36,10 +36,6 @@ const btn_restart = document.querySelector('#new_game');
 
 const btn_add_player = document.querySelector('#add_pseudo');
 
-const players = liste_players.childNodes;
-const scores = scores_area.childNodes;
-const drinkers = liste_drinkers.childNodes;
-
 var current_player = 1;
 var current_round = 1;
 var drink_limit = 5;
@@ -93,6 +89,8 @@ document.querySelector('#pseudo').addEventListener("keyup", function(e) {
     }
 });
 
+const players = liste_players.childNodes;
+const scores = scores_area.childNodes;
 
 function playClick(e){
     drink_limit = document.querySelector('#nbDrinkId').value;
