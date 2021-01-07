@@ -50,7 +50,7 @@ function displayOrHide (element){
 };
 
 function startClick(e){
-    console.log("Lancement du Jeu !");
+    //console.log("Lancement du Jeu !");
     displayOrHide(section_menu); //disparition menu
     displayOrHide(logo);    //apparition logo 
     displayOrHide(section_parametres);  //apparition parametres 
@@ -76,11 +76,11 @@ function addPlayer() {
         
         scores_area.appendChild(player_score);
         
-        console.log("Ajout de ", player.textContent);
+        //console.log("Ajout de ", player.textContent);
     }    
 
     if (slide_nbPlayers.value == 2) {
-        displayOrHide(btn_play);
+        btn_play.classList.remove("hidden_element");
     }
     if (slide_nbPlayers.value == 10) {
         displayOrHide(document.querySelector('.pseudo-form'));
@@ -98,7 +98,7 @@ document.querySelector('#pseudo').addEventListener("keyup", function(e) {
 function playClick(e){
     drink_limit = document.querySelector('#nbDrinkId').value;
     majScores();
-    console.log("Partie en ", drink_limit,"gorgées ! Lancement du Jeu !");
+    //console.log("Partie en ", drink_limit,"gorgées ! Lancement du Jeu !");
     displayOrHide(section_parametres);
     players[current_player].classList.toggle("current_player");
     document.querySelector('#current_player').textContent = "Tour de "+players[current_player].textContent;
@@ -115,7 +115,7 @@ async function getCategories(){
     const body = await response.json();
 
     try {
-        console.log(body);
+        //console.log(body);
         for (i=0; i<body.trivia_categories.length; i++){
             
             
@@ -134,7 +134,7 @@ async function getQuestion(){
     var url;
     var cat = document.querySelector('#select_category').value;
     var diff = document.querySelector('#select_difficulty').value;
-    console.log(cat, diff);
+    //console.log(cat, diff);
     if ((cat == "any_category") && (diff == "any_difficulty")){
         url = 'https://opentdb.com/api.php?amount=1';
     } else if (diff == "any_difficulty"){
@@ -148,7 +148,7 @@ async function getQuestion(){
     const body = await response.json();
 
     try {
-        console.log(body);
+        //console.log(body);
         createQuestion(body.results[0]);
     }
     catch {
@@ -159,7 +159,7 @@ async function getQuestion(){
 }
 
 function createQuestion ( quest ) {
-    console.log(quest.category);
+    //console.log(quest.category);
 
     //Recuperation de la question 
     document.querySelector('#question_category').textContent = quest.category;
@@ -184,7 +184,7 @@ function createQuestion ( quest ) {
 
     nb_options = 1 + quest.incorrect_answers.length; 
     var position_correct = Math.round((nb_options -1) * Math.random()) + 1;
-    console.log(nb_options, position_correct);
+    //console.log(nb_options, position_correct);
 
     var j = 0;
     for (var i = 1; i<=nb_options; i++){
@@ -216,7 +216,7 @@ function submitAnswer ( e ){
         propositions[i].removeEventListener('click', submitAnswer);
     }
 
-    console.log("nb de gorgées en jeu ", nbDrinksInGame);
+    //console.log("nb de gorgées en jeu ", nbDrinksInGame);
     
     //Verification de la reponse 
     if (e.currentTarget.classList.contains('correct_answer')){
@@ -232,10 +232,10 @@ function submitAnswer ( e ){
 function correctAnswer(){
 
     displayOrHide(btn_next);
-    console.log("Bonne réponse ! ");
+    //console.log("Bonne réponse ! ");
     
     const player = current_player;
-    console.log("Il reste ",nbDrinksInGame," gorgée(s) à distribuer");
+    //console.log("Il reste ",nbDrinksInGame," gorgée(s) à distribuer");
     
     if (slide_nbPlayers.value == 2){
         //affichage de la zone de résultat 
@@ -269,7 +269,7 @@ function correctAnswer(){
     
         for (var i = 1 ; i <= slide_nbPlayers.value ; i++){
             if (!players[i].classList.contains("current_player")){
-                console.log(players[i], i);
+                //console.log(players[i], i);
                 var newDrinker = document.createElement('div');
                 newDrinker.textContent = players[i].textContent;
                 newDrinker.value = i;
@@ -288,7 +288,7 @@ function drinkClick (e){
 }
 
 function incorrectAnswer(){
-    console.log("Mauvaise réponse ! ");
+    //console.log("Mauvaise réponse ! ");
     if (nbDrinksInGame>1){
         result.textContent = 'Dommage, mauvaise réponse '+players[current_player].textContent+' ! Bois '+nbDrinksInGame+' gorgées !';
     } else {
@@ -298,7 +298,7 @@ function incorrectAnswer(){
 }
 
 function drink (player, nbDrink){
-    console.log(players[player].textContent, " boit ", nbDrink);
+    //console.log(players[player].textContent, " boit ", nbDrink);
     nbDrinksInGame -= nbDrink;
     document.querySelector('#drinks_to_give').textContent = "Il reste "+nbDrinksInGame+" gorgées à distribuer";
     
@@ -346,7 +346,7 @@ function testFin () {
     var fin = 0;
     for (var i = 1; i <= slide_nbPlayers.value ; i++){
         if(players[i].value >= drink_limit && fin == 0){
-            console.log("fin de la partie");
+            //console.log("fin de la partie");
             fin = 1;
             btn_next.textContent = "Fin de la partie";
             btn_next.removeEventListener('click',nextClick);
